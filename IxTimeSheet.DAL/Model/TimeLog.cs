@@ -8,8 +8,6 @@ namespace IxTimeSheet.DAL.Model
         [Key]
         public int Id { get; set; }
         public string UserName { get; set; }
-
-
         public string Client { get; set; }
         public string Project { get; set; }
         public string Job { get; set; }
