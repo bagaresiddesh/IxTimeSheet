@@ -1,10 +1,14 @@
-﻿using System;
+﻿using IxTimeSheet.DAL.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace IxTimeSheet.Service.Interface
 {
-    internal interface IClient
+    public interface IClient
     {
+        public IEnumerable<Client> GetAll();
+        public void Create(Client clinet);
+        public void Delete(int Id);
     }
 }

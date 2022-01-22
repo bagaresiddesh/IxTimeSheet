@@ -1,10 +1,14 @@
-﻿using System;
+﻿using IxTimeSheet.DAL.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace IxTimeSheet.Service.Interface
 {
-    internal interface IJob
+    public interface IJob
     {
+        public IEnumerable<Job> GetAll();
+        public void Create(Job job);
+        public void Delete(int Id);
     }
 }
