@@ -1,10 +1,11 @@
-﻿
-using System;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace IxTimeSheet.DAL.Model
 {
     public class TimeLog
     {
+        [Key]
         public int Id { get; set; }
         public string UserName { get; set; }
         public string Client { get; set; }
