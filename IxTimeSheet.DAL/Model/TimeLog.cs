@@ -26,6 +26,8 @@ namespace IxTimeSheet.DAL.Model
 
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
+
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public TimeSpan Hours { get; set; }
 

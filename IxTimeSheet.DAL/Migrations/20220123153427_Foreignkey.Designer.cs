@@ -4,14 +4,16 @@ using IxTimeSheet.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IxTimeSheet.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220123153427_Foreignkey")]
+    partial class Foreignkey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,10 +70,10 @@ namespace IxTimeSheet.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Client_ID")
+                    b.Property<int>("CID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Client_Id")
+                    b.Property<int?>("ClientId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -85,7 +87,7 @@ namespace IxTimeSheet.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Client_Id");
+                    b.HasIndex("ClientId");
 
                     b.ToTable("Projects");
                 });
@@ -133,7 +135,7 @@ namespace IxTimeSheet.DAL.Migrations
                 {
                     b.HasOne("IxTimeSheet.DAL.Model.Client", "Client")
                         .WithMany("Project")
-                        .HasForeignKey("Client_Id");
+                        .HasForeignKey("ClientId");
                 });
 #pragma warning restore 612, 618
         }

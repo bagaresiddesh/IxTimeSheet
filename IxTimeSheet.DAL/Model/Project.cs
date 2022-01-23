@@ -13,7 +13,7 @@ namespace IxTimeSheet.DAL.Model
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
 
-        [ForeignKey("ClientId")]
+        [ForeignKey("Client_Id")]
         public virtual Client Client { get; set; }
     }
 }
