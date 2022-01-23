@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace IxTimeSheet.DAL.Model
@@ -7,14 +8,28 @@ namespace IxTimeSheet.DAL.Model
     {
         [Key]
         public int Id { get; set; }
+
+        [DisplayName("User Name")]
         public string UserName { get; set; }
+
+        [DisplayName("Client Name")]
         public string Client { get; set; }
+
+        [DisplayName("Project Name")]
         public string Project { get; set; }
+
+        [DisplayName("Job Name")]
         public string Job { get; set; }
+
+        [DisplayName("Work Item")]
         public string WorkItem { get; set; }
+
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
         public string Description { get; set; }
         public TimeSpan Hours { get; set; }
+
+        [DisplayName("Billable Status")]
         public bool BillableStatus { get; set; }
     }
 }
