@@ -41,6 +41,11 @@ namespace IxTimeSheet.Service.Repository
             return _applicationDbContext.TimeLogs.ToList();
         }
 
+        public TimeLog GetById(int id)
+        { 
+            return _applicationDbContext.TimeLogs.FirstOrDefault(x=>x.Id==id);
+        }
+
         public void Update(TimeLog timelog)
         {
             _applicationDbContext.Entry(timelog).State = Microsoft.EntityFrameworkCore.EntityState.Modified;

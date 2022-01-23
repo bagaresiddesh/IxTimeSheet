@@ -1,46 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IxTimeSheet.DAL.Data;
 using IxTimeSheet.DAL.Model;
+using IxTimeSheet.Service.Interface;
 
 namespace IxTimeSheet.Controllers
 {
     public class JobsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IJob _job;
 
-        public JobsController(ApplicationDbContext context)
+        public JobsController(IJob job)
         {
-            _context = context;
+            _job = job;
         }
 
         // GET: Jobs
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Jobs.ToListAsync());
-        }
-
-        // GET: Jobs/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var job = await _context.Jobs
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (job == null)
-            {
-                return NotFound();
-            }
-
-            return View(job);
+            return View();
         }
 
         // GET: Jobs/Create
@@ -50,82 +30,27 @@ namespace IxTimeSheet.Controllers
         }
 
         // POST: Jobs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,CreatedDate,UpdatedDate")] Job job)
+        public IActionResult Create([Bind("Id,Name,CreatedDate,UpdatedDate")] Job job)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(job);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(job);
-        }
-
-        // GET: Jobs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var job = await _context.Jobs.FindAsync(id);
-            if (job == null)
-            {
-                return NotFound();
-            }
-            return View(job);
-        }
-
-        // POST: Jobs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CreatedDate,UpdatedDate")] Job job)
-        {
-            if (id != job.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(job);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!JobExists(job.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _job.Create(job);
+                return View();
             }
             return View(job);
         }
 
         // GET: Jobs/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var job = await _context.Jobs
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var job = _job.GetById(id);
             if (job == null)
             {
                 return NotFound();
@@ -137,17 +62,20 @@ namespace IxTimeSheet.Controllers
         // POST: Jobs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var job = await _context.Jobs.FindAsync(id);
-            _context.Jobs.Remove(job);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var job = _job.GetById(id);
+            if(job==null)
+            {
+                return NotFound();
+            }
+            _job.Delete(id);
+            return View();
         }
 
         private bool JobExists(int id)
         {
-            return _context.Jobs.Any(e => e.Id == id);
+            return _job.Any(id);
         }
     }
 }

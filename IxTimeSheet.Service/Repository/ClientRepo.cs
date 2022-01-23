@@ -1,10 +1,8 @@
 ﻿using IxTimeSheet.DAL.Data;
 using IxTimeSheet.DAL.Model;
 using IxTimeSheet.Service.Interface;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace IxTimeSheet.Service.Repository
 {
@@ -15,6 +13,16 @@ namespace IxTimeSheet.Service.Repository
         {
             _applicationDbContext= applicationDbContext;
         }
+
+        public bool Any(int id)
+        {
+            if (_applicationDbContext.Clients.Any(x => x.Id == id))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public void Create(Client clinet)
         {
             _applicationDbContext.Clients.Add(clinet);
@@ -32,6 +40,11 @@ namespace IxTimeSheet.Service.Repository
         public IEnumerable<Client> GetAll()
         {
             return _applicationDbContext.Clients.ToList();
+        }
+
+        public Client GetById(int id)
+        {
+            return _applicationDbContext.Clients.FirstOrDefault(x => x.Id == id);
         }
     }
 }

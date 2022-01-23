@@ -1,46 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using IxTimeSheet.DAL.Data;
 using IxTimeSheet.DAL.Model;
+using IxTimeSheet.Service.Interface;
 
 namespace IxTimeSheet.Controllers
 {
     public class TimeLogsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ITimeLog _timelog;
 
-        public TimeLogsController(ApplicationDbContext context)
+        public TimeLogsController(ITimeLog timelog)
         {
-            _context = context;
+            _timelog= timelog;
         }
 
         // GET: TimeLogs
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.TimeLogs.ToListAsync());
-        }
-
-        // GET: TimeLogs/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var timeLog = await _context.TimeLogs
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (timeLog == null)
-            {
-                return NotFound();
-            }
-
-            return View(timeLog);
+            return View();
         }
 
         // GET: TimeLogs/Create
@@ -50,30 +27,26 @@ namespace IxTimeSheet.Controllers
         }
 
         // POST: TimeLogs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserName,Client,Project,Job,WorkItem,Date,Description,Hours,BillableStatus")] TimeLog timeLog)
+        public IActionResult Create([Bind("Id,UserName,Client,Project,Job,WorkItem,Date,Description,Hours,BillableStatus")] TimeLog timeLog)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(timeLog);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _timelog.Create(timeLog);
             }
             return View(timeLog);
         }
 
         // GET: TimeLogs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var timeLog = await _context.TimeLogs.FindAsync(id);
+            var timeLog = _timelog.GetById(id);
             if (timeLog == null)
             {
                 return NotFound();
@@ -82,11 +55,9 @@ namespace IxTimeSheet.Controllers
         }
 
         // POST: TimeLogs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,Client,Project,Job,WorkItem,Date,Description,Hours,BillableStatus")] TimeLog timeLog)
+        public IActionResult Edit(int id, [Bind("Id,UserName,Client,Project,Job,WorkItem,Date,Description,Hours,BillableStatus")] TimeLog timeLog)
         {
             if (id != timeLog.Id)
             {
@@ -97,8 +68,7 @@ namespace IxTimeSheet.Controllers
             {
                 try
                 {
-                    _context.Update(timeLog);
-                    await _context.SaveChangesAsync();
+                    _timelog.Update(timeLog);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -117,15 +87,14 @@ namespace IxTimeSheet.Controllers
         }
 
         // GET: TimeLogs/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var timeLog = await _context.TimeLogs
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var timeLog = _timelog.GetById(id);
             if (timeLog == null)
             {
                 return NotFound();
@@ -137,17 +106,21 @@ namespace IxTimeSheet.Controllers
         // POST: TimeLogs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var timeLog = await _context.TimeLogs.FindAsync(id);
-            _context.TimeLogs.Remove(timeLog);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var timelog=_timelog.GetById(id);
+            if(timelog == null)
+            {
+                return NotFound();
+            }
+            _timelog.Delete(id);
+
+            return View(); 
         }
 
         private bool TimeLogExists(int id)
         {
-            return _context.TimeLogs.Any(e => e.Id == id);
+            return _timelog.Any(id);
         }
     }
 }

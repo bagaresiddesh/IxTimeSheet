@@ -1,7 +1,6 @@
 ﻿using IxTimeSheet.DAL.Data;
 using IxTimeSheet.DAL.Model;
 using IxTimeSheet.Service.Interface;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,6 +14,16 @@ namespace IxTimeSheet.Service.Repository
         {
             _applicationDbContext= applicationDbContext;
         }
+
+        public bool Any(int id)
+        {
+            if(_applicationDbContext.Jobs.Any(x => x.Id == id))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public void Create(Job job)
         {
             _applicationDbContext.Jobs.Add(job);
@@ -30,6 +39,11 @@ namespace IxTimeSheet.Service.Repository
         public IEnumerable<Job> GetAll()
         {
             return _applicationDbContext.Jobs.ToList();
+        }
+
+        public Job GetById(int id)
+        {
+            return _applicationDbContext.Jobs.FirstOrDefault(x => x.Id == id);
         }
     }
 }

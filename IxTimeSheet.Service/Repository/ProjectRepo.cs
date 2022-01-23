@@ -13,6 +13,16 @@ namespace IxTimeSheet.Service.Repository
         {
             _applicationDbContext=applicationDbContext; 
         }
+
+        public bool Any(int id)
+        {
+            if (_applicationDbContext.Projects.Any(x => x.Id == id))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public void Create(Project project)
         {
             _applicationDbContext.Projects.Add(project);
@@ -30,6 +40,11 @@ namespace IxTimeSheet.Service.Repository
         public IEnumerable<Project> GetAll()
         {
             return _applicationDbContext.Projects.ToList();
+        }
+
+        public Project GetById(int id)
+        {
+            return _applicationDbContext.Projects.FirstOrDefault(x => x.Id == id);
         }
     }
 }

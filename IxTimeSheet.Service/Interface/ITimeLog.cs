@@ -8,9 +8,10 @@ namespace IxTimeSheet.Service.Interface
     public interface ITimeLog
     {
         public IEnumerable<TimeLog> GetAll();
+        public TimeLog GetById(int id);
         public void Create(TimeLog timelog);
         public void Update(TimeLog timelog);
-        public bool Any(int Id);
-        public void Delete(int Id);
+        public bool Any(int id);
+        public void Delete(int id);
     }
 }
