@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace IxTimeSheet.Service.Repository
 {
-    internal class TimeLogRepo : ITimeLog
+    public class TimeLogRepo : ITimeLog
     {
         private readonly ApplicationDbContext _applicationDbContext;
         public TimeLogRepo(ApplicationDbContext applicationDbContext)
