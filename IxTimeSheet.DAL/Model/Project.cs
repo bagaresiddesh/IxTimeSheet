@@ -7,13 +7,14 @@ namespace IxTimeSheet.DAL.Model
     public class Project
     {
         public int Id { get; set; }
+        public int CId { get; set; }
 
         [DisplayName("Project Name")]
         public string Name { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
 
-        [ForeignKey("Client_Id")]
+        [ForeignKey("CId")]
         public virtual Client Client { get; set; }
     }
 }

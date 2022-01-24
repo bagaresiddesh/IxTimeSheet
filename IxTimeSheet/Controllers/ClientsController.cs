@@ -1,9 +1,7 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using IxTimeSheet.DAL.Model;
 using IxTimeSheet.Service.Interface;
+using System.Linq;
 
 namespace IxTimeSheet.Controllers
 {
@@ -19,7 +17,9 @@ namespace IxTimeSheet.Controllers
         // GET: Clients
         public IActionResult Index()
         {
-            return View();
+            var clients=_client.GetAll().ToList();
+
+            return View(clients);
         }
 
         // GET: Clients/Create

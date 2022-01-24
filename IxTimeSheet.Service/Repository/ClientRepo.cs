@@ -1,6 +1,7 @@
 ﻿using IxTimeSheet.DAL.Data;
 using IxTimeSheet.DAL.Model;
 using IxTimeSheet.Service.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,9 +24,11 @@ namespace IxTimeSheet.Service.Repository
             return false;
         }
 
-        public void Create(Client clinet)
+        public void Create(Client client)
         {
-            _applicationDbContext.Clients.Add(clinet);
+            client.CreatedDate = DateTime.Now;
+
+            _applicationDbContext.Clients.Add(client);
             _applicationDbContext.SaveChanges();
         }
 

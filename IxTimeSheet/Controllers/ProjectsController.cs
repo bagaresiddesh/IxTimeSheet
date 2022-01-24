@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using IxTimeSheet.DAL.Model;
 using IxTimeSheet.Service.Interface;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IxTimeSheet.Controllers
 {
@@ -22,16 +24,20 @@ namespace IxTimeSheet.Controllers
         // GET: Projects/Create
         public IActionResult Create()
         {
+            var clients= _project.GetClients().ToList();
+            ViewBag.Clients = clients;
+
             return View();
         }
 
         // POST: Projects/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Name,CreatedDate,UpdatedDate")] Project project)
+        public IActionResult Create([Bind("Id,Name,CreatedDate,UpdatedDate,Client.Id,ddlClient")] Project project)
         {
             if (ModelState.IsValid)
             {
+               // project.Client.Id = int.Parse(Request.Form["ddlClient"]);
                 _project.Create(project);
                 return View();
             }

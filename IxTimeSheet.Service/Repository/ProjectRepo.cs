@@ -1,6 +1,7 @@
 ﻿using IxTimeSheet.DAL.Data;
 using IxTimeSheet.DAL.Model;
 using IxTimeSheet.Service.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,6 +26,8 @@ namespace IxTimeSheet.Service.Repository
 
         public void Create(Project project)
         {
+            project.CreatedDate = DateTime.Now;
+            
             _applicationDbContext.Projects.Add(project);
             _applicationDbContext.SaveChanges();
         }
@@ -45,6 +48,11 @@ namespace IxTimeSheet.Service.Repository
         public Project GetById(int id)
         {
             return _applicationDbContext.Projects.FirstOrDefault(x => x.Id == id);
+        }
+
+        public IEnumerable<Client> GetClients()
+        {
+            return _applicationDbContext.Clients.ToList();
         }
     }
 }

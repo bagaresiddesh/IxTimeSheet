@@ -14,6 +14,5 @@ namespace IxTimeSheet.DAL.Model
         public string Name { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
-        public virtual ICollection<Project> Project { get; set; }
     }
 }
