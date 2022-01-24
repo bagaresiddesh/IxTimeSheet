@@ -8,6 +8,9 @@ namespace IxTimeSheet.Service.Interface
     public interface ITimeLog
     {
         public IEnumerable<TimeLog> GetAll();
+        public IEnumerable<Client> GetClients();
+        public IEnumerable<Project> GetProjects();
+        public IEnumerable<Job> GetJobs();
         public TimeLog GetById(int id);
         public void Create(TimeLog timelog);
         public void Update(TimeLog timelog);

@@ -1,6 +1,7 @@
 ﻿using IxTimeSheet.DAL.Data;
 using IxTimeSheet.DAL.Model;
 using IxTimeSheet.Service.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -26,6 +27,8 @@ namespace IxTimeSheet.Service.Repository
 
         public void Create(Job job)
         {
+            job.CreatedDate = DateTime.Now;
+
             _applicationDbContext.Jobs.Add(job);
             _applicationDbContext.SaveChanges();
         }

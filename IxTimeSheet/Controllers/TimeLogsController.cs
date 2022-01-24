@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using IxTimeSheet.DAL.Model;
 using IxTimeSheet.Service.Interface;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace IxTimeSheet.Controllers
 {   
@@ -23,13 +25,21 @@ namespace IxTimeSheet.Controllers
         // GET: TimeLogs/Create
         public IActionResult Create()
         {
+            var clients=_timelog.GetClients().ToList();
+            var projects=_timelog.GetProjects().ToList();
+            var jobs = _timelog.GetJobs().ToList();
+
+            ViewBag.AllClients=clients;
+            //ViewBag.AllProjects=projects;
+            ViewBag.AllJobs=jobs;
+
             return View();
         }
 
         // POST: TimeLogs/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,UserName,Client,Project,Job,WorkItem,Date,Description,Hours,BillableStatus")] TimeLog timeLog)
+        public IActionResult Create([Bind("Id,Client,Project,Job,WorkItem,Date,Description,Hours,BillableStatus")] TimeLog timeLog)
         {
             if (ModelState.IsValid)
             {
@@ -121,6 +131,21 @@ namespace IxTimeSheet.Controllers
         private bool TimeLogExists(int id)
         {
             return _timelog.Any(id);
+        }
+
+        public IActionResult GetProjectsByClientId(int clientId)
+        {
+            var projects=_timelog.GetProjects().ToList();
+
+            projects = projects.Where(x => x.CId == clientId).ToList();
+
+            var Result = projects.Select(m => new SelectListItem()
+            {
+                Value = m.Id.ToString(),
+                Text = m.Name.ToString()
+            });
+
+            return new JsonResult(projects);
         }
     }
 }

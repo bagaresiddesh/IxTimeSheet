@@ -20,7 +20,9 @@ namespace IxTimeSheet.Controllers
         // GET: Jobs
         public IActionResult Index()
         {
-            return View();
+            var job=_job.GetAll().ToList();
+
+            return View(job);
         }
 
         // GET: Jobs/Create

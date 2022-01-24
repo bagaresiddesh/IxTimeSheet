@@ -51,5 +51,20 @@ namespace IxTimeSheet.Service.Repository
             _applicationDbContext.Entry(timelog).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _applicationDbContext.SaveChanges();
         }
+
+        public IEnumerable<Client> GetClients()
+        {
+            return _applicationDbContext.Clients.ToList();
+        }
+
+        public IEnumerable<Project> GetProjects()
+        {
+            return _applicationDbContext.Projects.ToList(); 
+        }
+
+        public IEnumerable<Job> GetJobs()
+        {
+            return _applicationDbContext.Jobs.ToList();
+        }
     }
 }
