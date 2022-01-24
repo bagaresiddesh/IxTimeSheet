@@ -84,9 +84,10 @@
                 <span asp-validation-for="Hours" class="text-danger"></span>
             </div>
             <div>
-                <select class="form-control"> 
-                <option value="1">Billable </option>
-                <option value="0">Non Billable</option>
+                <select class="form-control" name="BillableStatus"> 
+                <option selected>Billable Status</option>
+                <option value="true">Billable </option>
+                <option value="false">Non Billable</option>
             </select>
             </div>          
             <br />

@@ -19,14 +19,16 @@ namespace IxTimeSheet.Controllers
         // GET: TimeLogs
         public IActionResult Index()
         {
-            return View();
+            var timelog=_timelog.GetAll().ToList();
+
+            return View(timelog);
         }
 
         // GET: TimeLogs/Create
         public IActionResult Create()
         {
             var clients=_timelog.GetClients().ToList();
-            var projects=_timelog.GetProjects().ToList();
+            //var projects=_timelog.GetProjects().ToList();
             var jobs = _timelog.GetJobs().ToList();
 
             ViewBag.AllClients=clients;
@@ -41,8 +43,11 @@ namespace IxTimeSheet.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Id,Client,Project,Job,WorkItem,Date,Description,Hours,BillableStatus")] TimeLog timeLog)
         {
+            var username = User.Identity.Name;
+            
             if (ModelState.IsValid)
             {
+                timeLog.UserName = username;
                 _timelog.Create(timeLog);
             }
             return View(timeLog);
