@@ -145,7 +145,7 @@ namespace IxTimeSheet.Controllers
                 Text = m.Name.ToString()
             });
 
-            return new JsonResult(projects);
+            return new JsonResult(Result);
         }
     }
 }
