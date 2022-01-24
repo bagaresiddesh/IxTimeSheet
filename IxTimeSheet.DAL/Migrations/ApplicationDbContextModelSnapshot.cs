@@ -68,10 +68,7 @@ namespace IxTimeSheet.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Client_ID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Client_Id")
+                    b.Property<int>("CId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
@@ -85,7 +82,7 @@ namespace IxTimeSheet.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Client_Id");
+                    b.HasIndex("CId");
 
                     b.ToTable("Projects");
                 });
@@ -132,8 +129,10 @@ namespace IxTimeSheet.DAL.Migrations
             modelBuilder.Entity("IxTimeSheet.DAL.Model.Project", b =>
                 {
                     b.HasOne("IxTimeSheet.DAL.Model.Client", "Client")
-                        .WithMany("Project")
-                        .HasForeignKey("Client_Id");
+                        .WithMany()
+                        .HasForeignKey("CId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

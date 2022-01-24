@@ -18,7 +18,9 @@ namespace IxTimeSheet.Controllers
         // GET: Projects
         public IActionResult Index()
         {
-            return View();
+            var project = _project.GetAll().ToList();
+
+            return View(project);
         }
 
         // GET: Projects/Create
@@ -33,13 +35,13 @@ namespace IxTimeSheet.Controllers
         // POST: Projects/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Name,CreatedDate,UpdatedDate,Client.Id,ddlClient")] Project project)
+        public IActionResult Create([Bind("Id,Name,CreatedDate,UpdatedDate,CId")] Project project)
         {
             if (ModelState.IsValid)
             {
-               // project.Client.Id = int.Parse(Request.Form["ddlClient"]);
+               
                 _project.Create(project);
-                return View();
+                return RedirectToAction("Index");
             }
             return View(project);
         }
