@@ -18,7 +18,7 @@ namespace IxTimeSheet.Controllers
         // GET: Jobs
         public IActionResult Index()
         {
-            var job=_job.GetAll().ToList();
+            var job = _job.GetAll().ToList();
 
             return View(job);
         }
@@ -58,6 +58,13 @@ namespace IxTimeSheet.Controllers
             {
                 return NotFound();
             }
+            
+            int pid = _job.GetById(id).PId;
+
+            var projects = _job.GetProjects().ToList();
+            var target = projects.Where(c => c.Id == pid).FirstOrDefault().Name;
+            ViewBag.Project = target;
+
             return View(job);
         }
 
@@ -66,6 +73,8 @@ namespace IxTimeSheet.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Id,Name,CreatedDate,UpdatedDate")] Job job)
         {
+            int pid = _job.GetById(id).PId;
+
             if (id != job.Id)
             {
                 return NotFound();
@@ -75,6 +84,7 @@ namespace IxTimeSheet.Controllers
             {
                 try
                 {
+                    job.PId = pid;
                     _job.Update(job);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -88,7 +98,7 @@ namespace IxTimeSheet.Controllers
                         throw;
                     }
                 }
-                return View();
+                return RedirectToAction("Index");
             }
             return View(job);
         }
@@ -117,7 +127,7 @@ namespace IxTimeSheet.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             var job = _job.GetById(id);
-            if(job==null)
+            if (job == null)
             {
                 return NotFound();
             }

@@ -58,6 +58,13 @@ namespace IxTimeSheet.Controllers
             {
                 return NotFound();
             }
+
+            int cid = _project.GetById(id).CId;
+
+            var clients = _project.GetClients().ToList();
+            var target = clients.Where(c => c.Id == cid).FirstOrDefault().Name;
+            ViewBag.Client = target;
+
             return View(project);
         }
 
@@ -66,6 +73,8 @@ namespace IxTimeSheet.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("Id,Name,CreatedDate,UpdatedDate")] Project project)
         {
+            int cid = _project.GetById(id).CId;
+
             if (id != project.Id)
             {
                 return NotFound();
@@ -75,6 +84,7 @@ namespace IxTimeSheet.Controllers
             {
                 try
                 {
+                    project.CId = cid;
                     _project.Update(project);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -88,7 +98,7 @@ namespace IxTimeSheet.Controllers
                         throw;
                     }
                 }
-                return View();
+                return RedirectToAction("Index");
             }
             return View(project);
         }
