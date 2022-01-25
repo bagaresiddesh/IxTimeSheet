@@ -1,8 +1,6 @@
-﻿using System;
-using IxTimeSheet.Data;
+﻿using IxTimeSheet.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +17,7 @@ namespace IxTimeSheet.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("IxTimeSheetContextConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<IxTimeSheetContext>();
             });
         }
