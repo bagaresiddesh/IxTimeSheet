@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/client.js"></script>
+    <script src="js/templates.js"></script>
+    <script src="js/student-dashboard.js"></script>
+</head>
+<body>
+
+     <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="TimeLogs" asp-action="Index">View Time Log</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Details 
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" asp-area="" asp-controller="Clients" asp-action="Index">Clients</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Projects" asp-action="Index">Projects</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Jobs" asp-action="Index">Jobs</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Add 
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" asp-area="" asp-controller="Clients" asp-action="Create">Add New Client</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Projects" asp-action="Create">Add New Project</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Jobs" asp-action="Create">Add New Job</a>
+                            </div>
+                        </li>
+                    </ul>
+        </div>
+</body>
+</html>

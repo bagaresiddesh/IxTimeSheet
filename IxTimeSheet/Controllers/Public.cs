@@ -8,15 +8,5 @@ namespace IxTimeSheet.Controllers
         {
             return View();
         }
-
-        public IActionResult Users()
-        {
-            //Getting username(mail) where user is logged in 
-            var username = User.Identity.Name;
-
-            ViewBag.Username = username;
-
-            return View();
-        }
     }
 }

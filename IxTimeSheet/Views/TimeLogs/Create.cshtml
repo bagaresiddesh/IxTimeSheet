@@ -74,17 +74,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
             <div class="form-group">
-                <label asp-for="Client" class="control-label"></label>               
+                <label asp-for="Client" class="control-label" required="required"></label>               
                     @Html.DropDownListFor(Model => Model.Client, new SelectList(ViewBag.AllClients, "Id", "Name"),"Select Client", new { id = "ddClients", @class="form-control" })
                 
             </div>
             <div class="form-group">
-                <label asp-for="Project" class="control-label"></label>  
+                <label asp-for="Project" class="control-label" required="required"></label>  
                     @Html.DropDownListFor(Model => Model.Project, new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Name"), "Select Project", new{ id = "ddProjects", @class="form-control"}) 
                 
             </div>
             <div class="form-group">
-                <label asp-for="Job" class="control-label"></label>                                   
+                <label asp-for="Job" class="control-label" required="required"></label>                                   
                     @Html.DropDownListFor(Model => Model.Job, new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Name"), "Select Job", new{ id = "ddJobs", @class="form-control"})                 
             
             </div>
@@ -109,7 +109,7 @@
                 <span asp-validation-for="Hours" class="text-danger"></span>
             </div>
             <div>
-                <select class="form-control" name="BillableStatus"> 
+                <select class="form-control" name="BillableStatus" required="required"> 
                 <option selected>Billable Status</option>
                 <option value="true">Billable </option>
                 <option value="false">Non Billable</option>

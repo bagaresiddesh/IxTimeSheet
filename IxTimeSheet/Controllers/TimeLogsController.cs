@@ -14,6 +14,7 @@ namespace IxTimeSheet.Controllers
 
         public TimeLogsController(ITimeLog timelog)
         {
+            
             _timelog= timelog;
         }
 
