@@ -34,7 +34,14 @@ namespace IxTimeSheet.Service.Repository
 
         public void Update(Project project)
         {
-            _applicationDbContext.Entry(project).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            Project oldData = _applicationDbContext.Projects.Where(x => x.Id == project.Id).FirstOrDefault();
+            if (oldData != null)
+            {
+                oldData.Name = project.Name;
+                oldData.CId=project.CId;    
+                oldData.UpdatedDate = DateTime.Now;
+            }
+
             _applicationDbContext.SaveChanges();
         }
 

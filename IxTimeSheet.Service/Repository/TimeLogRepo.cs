@@ -48,7 +48,15 @@ namespace IxTimeSheet.Service.Repository
 
         public void Update(TimeLog timelog)
         {
-            _applicationDbContext.Entry(timelog).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            TimeLog oldData = _applicationDbContext.TimeLogs.Where(x => x.Id == timelog.Id).FirstOrDefault();
+            if (oldData != null)
+            {
+                oldData.WorkItem = timelog.WorkItem;
+                oldData.Date = timelog.Date;
+                oldData.Description = timelog.Description;  
+                oldData.BillableStatus = timelog.BillableStatus;
+            }
+
             _applicationDbContext.SaveChanges();
         }
 

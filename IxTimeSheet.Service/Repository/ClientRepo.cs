@@ -34,7 +34,13 @@ namespace IxTimeSheet.Service.Repository
 
         public void Update(Client client)
         {
-            _applicationDbContext.Entry(client).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            Client oldData = _applicationDbContext.Clients.Where(x => x.Id == client.Id).FirstOrDefault();
+            if(oldData != null)
+            {
+                oldData.Name = client.Name;
+                oldData.UpdatedDate = DateTime.Now;
+            }
+            
             _applicationDbContext.SaveChanges();
         }
 

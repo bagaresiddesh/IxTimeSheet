@@ -35,7 +35,14 @@ namespace IxTimeSheet.Service.Repository
 
         public void Update(Job job)
         {
-            _applicationDbContext.Entry(job).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            Job oldData = _applicationDbContext.Jobs.Where(x => x.Id == job.Id).FirstOrDefault();
+            if (oldData != null)
+            {
+                oldData.Name = job.Name;
+                oldData.PId = job.PId;
+                oldData.UpdatedDate = DateTime.Now;
+            }
+
             _applicationDbContext.SaveChanges();
         }
 
