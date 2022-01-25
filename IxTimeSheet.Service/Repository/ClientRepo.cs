@@ -32,6 +32,12 @@ namespace IxTimeSheet.Service.Repository
             _applicationDbContext.SaveChanges();
         }
 
+        public void Update(Client client)
+        {
+            _applicationDbContext.Entry(client).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _applicationDbContext.SaveChanges();
+        }
+
         public void Delete(int Id)
         {
             Client Temp=_applicationDbContext.Clients.Where(x=>x.Id==Id).FirstOrDefault();

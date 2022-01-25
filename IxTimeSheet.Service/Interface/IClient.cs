@@ -10,6 +10,7 @@ namespace IxTimeSheet.Service.Interface
         public IEnumerable<Client> GetAll();
         public Client GetById(int id);
         public void Create(Client clinet);
+        public void Update(Client clinet);
         public void Delete(int id);
         public bool Any(int id);    
     }

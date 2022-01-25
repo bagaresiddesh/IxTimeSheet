@@ -33,6 +33,12 @@ namespace IxTimeSheet.Service.Repository
             _applicationDbContext.SaveChanges();
         }
 
+        public void Update(Job job)
+        {
+            _applicationDbContext.Entry(job).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _applicationDbContext.SaveChanges();
+        }
+
         public void Delete(int Id)
         {
             Job Temp = _applicationDbContext.Jobs.Where(x=>x.Id==Id).FirstOrDefault();

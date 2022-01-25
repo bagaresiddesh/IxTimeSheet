@@ -13,15 +13,25 @@ namespace IxTimeSheet.Controllers
         private readonly ITimeLog _timelog;
 
         public TimeLogsController(ITimeLog timelog)
-        {
-            
+        {          
             _timelog= timelog;
         }
 
         // GET: TimeLogs
         public IActionResult Index()
         {
+            string username = User.Identity.Name;
+
             var timelog=_timelog.GetAll().ToList();
+
+            timelog=timelog.Where(x=>x.UserName.Equals(username)).ToList();
+
+            return View(timelog);
+        }
+
+        public IActionResult IndexAll()
+        {
+            var timelog = _timelog.GetAll().ToList();
 
             return View(timelog);
         }

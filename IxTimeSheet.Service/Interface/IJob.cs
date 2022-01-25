@@ -9,6 +9,7 @@ namespace IxTimeSheet.Service.Interface
         public IEnumerable<Project> GetProjects();
         public Job GetById(int id);
         public void Create(Job job);
+        public void Update(Job job);
         public void Delete(int id);
         public bool Any(int id);
     }
