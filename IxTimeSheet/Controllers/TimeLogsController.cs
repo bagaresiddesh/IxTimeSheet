@@ -4,6 +4,7 @@ using IxTimeSheet.DAL.Model;
 using IxTimeSheet.Service.Interface;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 
 namespace IxTimeSheet.Controllers
 {   
@@ -28,11 +29,11 @@ namespace IxTimeSheet.Controllers
         public IActionResult Create()
         {
             var clients=_timelog.GetClients().ToList();
-            //var projects=_timelog.GetProjects().ToList();
+            var projects=_timelog.GetProjects().ToList();
             var jobs = _timelog.GetJobs().ToList();
 
             ViewBag.AllClients=clients;
-            //ViewBag.AllProjects=projects;
+            ViewBag.AllProjects=projects;
             ViewBag.AllJobs=jobs;
 
             return View();
@@ -47,8 +48,21 @@ namespace IxTimeSheet.Controllers
             
             if (ModelState.IsValid)
             {
+                var clients = _timelog.GetClients().ToList();
+                var projects = _timelog.GetProjects().ToList();
+                var jobs = _timelog.GetJobs().ToList();
+
+                int cid = Int32.Parse(timeLog.Client);
+                int pid = Int32.Parse(timeLog.Project);
+                int jid = Int32.Parse(timeLog.Job);
+
+                timeLog.Client = clients.Where(x=>x.Id == cid).FirstOrDefault().Name;
+                timeLog.Project = projects.Where(x=>x.Id==pid).FirstOrDefault().Name;
+                timeLog.Job = jobs.Where(x=>x.Id==jid).FirstOrDefault().Name;
+
                 timeLog.UserName = username;
                 _timelog.Create(timeLog);
+                return RedirectToAction("Index");
             }
             return View(timeLog);
         }
@@ -130,7 +144,7 @@ namespace IxTimeSheet.Controllers
             }
             _timelog.Delete(id);
 
-            return View(); 
+            return RedirectToAction("Index"); 
         }
 
         private bool TimeLogExists(int id)
@@ -145,6 +159,21 @@ namespace IxTimeSheet.Controllers
             projects = projects.Where(x => x.CId == clientId).ToList();
 
             var Result = projects.Select(m => new SelectListItem()
+            {
+                Value = m.Id.ToString(),
+                Text = m.Name.ToString()
+            });
+
+            return new JsonResult(Result);
+        }
+
+        public IActionResult GetJobsByProjectId(int projectId)
+        {
+            var jobs = _timelog.GetJobs().ToList();
+
+            jobs = jobs.Where(x => x.PId == projectId).ToList();
+
+            var Result = jobs.Select(m => new SelectListItem()
             {
                 Value = m.Id.ToString(),
                 Text = m.Name.ToString()

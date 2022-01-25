@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using IxTimeSheet.DAL.Model;
 using IxTimeSheet.Service.Interface;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace IxTimeSheet.Controllers
@@ -38,8 +37,7 @@ namespace IxTimeSheet.Controllers
         public IActionResult Create([Bind("Id,Name,CreatedDate,UpdatedDate,CId")] Project project)
         {
             if (ModelState.IsValid)
-            {
-               
+            {               
                 _project.Create(project);
                 return RedirectToAction("Index");
             }

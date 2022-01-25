@@ -36,7 +36,7 @@ namespace IxTimeSheet.Controllers
             if (ModelState.IsValid)
             {
                 _client.Create(client);
-                return View();
+                return RedirectToAction("Index");
             }
             return View(client);
         }

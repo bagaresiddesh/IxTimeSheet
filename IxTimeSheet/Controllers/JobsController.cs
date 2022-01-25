@@ -1,8 +1,5 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using IxTimeSheet.DAL.Data;
 using IxTimeSheet.DAL.Model;
 using IxTimeSheet.Service.Interface;
 
@@ -37,12 +34,12 @@ namespace IxTimeSheet.Controllers
         // POST: Jobs/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Name,CreatedDate,UpdatedDate")] Job job)
+        public IActionResult Create([Bind("Id,Name,CreatedDate,UpdatedDate,PId")] Job job)
         {
             if (ModelState.IsValid)
             {
                 _job.Create(job);
-                return View();
+                return RedirectToAction("Index");
             }
             return View(job);
         }
