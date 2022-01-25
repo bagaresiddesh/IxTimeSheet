@@ -85,7 +85,7 @@ namespace IxTimeSheet.Controllers
                         throw;
                     }
                 }
-                return View();
+                return RedirectToAction("Index");
             }
             return View(client);
         }
@@ -118,7 +118,8 @@ namespace IxTimeSheet.Controllers
                 return NotFound();
             }
             _client.Delete(id);
-            return View(client);
+
+            return RedirectToAction("Index");
         }
 
         private bool ClientExists(int id)

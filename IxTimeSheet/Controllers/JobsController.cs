@@ -132,7 +132,8 @@ namespace IxTimeSheet.Controllers
                 return NotFound();
             }
             _job.Delete(id);
-            return View();
+
+            return RedirectToAction("Index");
         }
 
         private bool JobExists(int id)

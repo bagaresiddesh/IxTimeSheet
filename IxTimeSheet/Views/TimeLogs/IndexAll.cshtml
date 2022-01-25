@@ -1,10 +1,13 @@
 ﻿@model IEnumerable<IxTimeSheet.DAL.Model.TimeLog>
 
 @{
-    ViewData["Title"] = "IndexALl";
+    ViewData["Title"] = "Time Log";
 }
 
-<h1>Index</h1>
+<h1>Time Log</h1>
+<p>
+    <a asp-action="Index" asp-controller="Private">Dashboard</a>
+</p>
 
 <table class="table">
     <thead>

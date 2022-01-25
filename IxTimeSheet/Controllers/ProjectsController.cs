@@ -131,12 +131,14 @@ namespace IxTimeSheet.Controllers
             }
             _project.Delete(id);
 
-            return View();
+            return RedirectToAction("Index");
+
         }
 
         private bool ProjectExists(int id)
         {
             return _project.Any(id);
         }
-    }
+    } 
+
 }
