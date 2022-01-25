@@ -28,6 +28,9 @@ namespace IxTimeSheet.Controllers
         // GET: Jobs/Create
         public IActionResult Create()
         {
+            var projects = _job.GetProjects().ToList();
+            ViewBag.Projects = projects;
+
             return View();
         }
 

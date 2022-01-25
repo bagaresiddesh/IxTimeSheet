@@ -44,6 +44,11 @@ namespace IxTimeSheet.Service.Repository
             return _applicationDbContext.Jobs.ToList();
         }
 
+        public IEnumerable<Project> GetProjects()
+        {
+            return _applicationDbContext.Projects.ToList();
+        }
+
         public Job GetById(int id)
         {
             return _applicationDbContext.Jobs.FirstOrDefault(x => x.Id == id);
