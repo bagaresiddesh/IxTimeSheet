@@ -80,6 +80,9 @@ namespace IxTimeSheet.Controllers
             {
                 return NotFound();
             }
+            TimeSpan temp = timeLog.Hours;
+            
+
             return View(timeLog);
         }
 
