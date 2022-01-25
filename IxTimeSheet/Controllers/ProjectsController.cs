@@ -2,6 +2,7 @@
 using IxTimeSheet.DAL.Model;
 using IxTimeSheet.Service.Interface;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace IxTimeSheet.Controllers
 {
@@ -44,6 +45,53 @@ namespace IxTimeSheet.Controllers
             return View(project);
         }
 
+        // GET: Projects/Edit/5
+        public IActionResult Edit(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var project = _project.GetById(id);
+            if (project == null)
+            {
+                return NotFound();
+            }
+            return View(project);
+        }
+
+        // POST: Projects/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, [Bind("Id,Name,CreatedDate,UpdatedDate")] Project project)
+        {
+            if (id != project.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _project.Update(project);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ProjectExists(project.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return View();
+            }
+            return View(project);
+        }
         // GET: Projects/Delete/5
         public IActionResult Delete(int id)
         {

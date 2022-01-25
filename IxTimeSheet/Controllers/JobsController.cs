@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using IxTimeSheet.DAL.Model;
 using IxTimeSheet.Service.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace IxTimeSheet.Controllers
 {
@@ -43,6 +44,55 @@ namespace IxTimeSheet.Controllers
             }
             return View(job);
         }
+
+        // GET: Jobs/Edit/5
+        public IActionResult Edit(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var job = _job.GetById(id);
+            if (job == null)
+            {
+                return NotFound();
+            }
+            return View(job);
+        }
+
+        // POST: Jobs/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, [Bind("Id,Name,CreatedDate,UpdatedDate")] Job job)
+        {
+            if (id != job.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _job.Update(job);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!JobExists(job.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return View();
+            }
+            return View(job);
+        }
+
 
         // GET: Jobs/Delete/5
         public IActionResult Delete(int id)
