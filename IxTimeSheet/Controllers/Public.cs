@@ -6,9 +6,7 @@ namespace IxTimeSheet.Controllers
     {
         public IActionResult Index()
         {
-            string username= User.Identity.Name;
-
-            return RedirectToAction("Index", "TimeLogs", new { arg = username });
+            return View();
         }
     }
 }

@@ -42,17 +42,13 @@
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <textarea asp-for="Description" class="form-control "></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Hours" class="control-label"></label>
                 @Html.TextBoxFor(x => x.Hours, "{0:hh\\:mm}",new { @readonly="readonly", @class="form-control" })
-                @*<input asp-for="Hours" class="form-control" />*@
-                <span asp-validation-for="Hours" class="text-danger"></span>
             </div>
             <div>
                 <select class="form-control" name="BillableStatus"> 
-                <option selected>Billable Status</option>
                 <option value="true">Billable </option>
                 <option value="false">Non Billable</option>
             </select>

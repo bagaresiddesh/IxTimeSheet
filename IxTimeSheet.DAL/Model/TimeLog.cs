@@ -35,6 +35,7 @@ namespace IxTimeSheet.DAL.Model
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
+        [Required]
         [DataType(DataType.Time)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:H:mm}")]
         public TimeSpan Hours { get; set; }

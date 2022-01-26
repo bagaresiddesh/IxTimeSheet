@@ -75,18 +75,18 @@
             
             <div class="form-group">
                 <label asp-for="Client" class="control-label" required="required"></label>               
-                    @Html.DropDownListFor(Model => Model.Client, new SelectList(ViewBag.AllClients, "Id", "Name"),"Select Client", new { id = "ddClients", @class="form-control" })
-                
+                @Html.DropDownListFor(Model => Model.Client, new SelectList(ViewBag.AllClients, "Id", "Name"),"Select Client", new { id = "ddClients", @class="form-control"})
+                <span asp-validation-for="Client" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Project" class="control-label" required="required"></label>  
-                    @Html.DropDownListFor(Model => Model.Project, new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Name"), "Select Project", new{ id = "ddProjects", @class="form-control"}) 
-                
+                @Html.DropDownListFor(Model => Model.Project, new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Name"), "Select Project", new{ id = "ddProjects", @class="form-control"}) 
+                <span asp-validation-for="Project" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Job" class="control-label" required="required"></label>                                   
                     @Html.DropDownListFor(Model => Model.Job, new SelectList(Enumerable.Empty<SelectListItem>(), "Id", "Name"), "Select Job", new{ id = "ddJobs", @class="form-control"})                 
-            
+                    <span asp-validation-for="Job" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="WorkItem" class="control-label"></label>
@@ -101,7 +101,6 @@
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <textarea asp-for="Description" class="form-control "></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Hours" class="control-label"></label>
@@ -109,10 +108,10 @@
                 <span asp-validation-for="Hours" class="text-danger"></span>
             </div>
             <div>
-                <select class="form-control" name="BillableStatus" required="required"> 
-                <option selected>Billable Status</option>
+                <select class="form-control" name="BillableStatus"> 
                 <option value="true">Billable </option>
                 <option value="false">Non Billable</option>
+                <span asp-validation-for="BillableStatus" class="text-danger"></span>
             </select>
             </div>          
             <br />
@@ -121,10 +120,6 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
