@@ -1,5 +1,4 @@
-﻿@using IxTimeSheet.Service.ViewModel
-@model IEnumerable<IxTimeSheet.DAL.Model.TimeLog>
+﻿@model IEnumerable<IxTimeSheet.DAL.Model.TimeLog>
 
 @{
     ViewData["Title"] = "Time Log";
@@ -7,9 +6,16 @@
 
 <h1>Time Log</h1>
 <p>
-    <a asp-action="Index" asp-controller="Private">Dashboard</a>
+    <a asp-action="Index" asp-controller="Private">   Dashboard  </a>  <br />
+    <a asp-action="IndexAll" asp-controller="TimeLogs">   Refresh   </a>
 </p>
 
+    @using(@Html.BeginForm())
+    {
+        <label>Search by User Name </label>
+        <input id="Search" name="Search" type="text" class="form-control"/><br />
+        <input type="submit" class="btn-primary" value="Search"/><br />
+    }  
 
 <table class="table">
     <thead>
@@ -31,9 +37,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Hours)
@@ -65,9 +68,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Hours.Hours):@Html.DisplayFor(modelItem => item.Hours.Minutes)

@@ -37,13 +37,17 @@ namespace IxTimeSheet.Controllers
             return View(timelog);
         }
 
-        public IActionResult IndexAll()
+        public IActionResult IndexAll(string Search)
         {
             var timelog = _timelog.GetAll().ToList();
 
-            List <vwTotalHours> totals = timelog.GroupBy(x => x.Date).Select(x => new vwTotalHours { Day = x.Key, TotalHours = x.Sum(c => c.Hours.Hours), TotalMinutes=x.Sum(c=>c.Hours.Minutes)}).ToList();
+            //List <vwTotalHours> totals = timelog.GroupBy(x => x.Date).Select(x => new vwTotalHours { Day = x.Key, TotalHours = x.Sum(c => c.Hours.Hours), TotalMinutes=x.Sum(c=>c.Hours.Minutes)}).ToList();
+            //ViewBag.Total = totals;
 
-            ViewBag.Total = totals;
+            if(Search != null)
+            {
+                timelog=timelog.Where(x=>x.UserName.Contains(Search)).ToList();
+            }
 
             return View(timelog);
         }
