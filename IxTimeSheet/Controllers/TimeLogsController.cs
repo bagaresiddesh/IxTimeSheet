@@ -5,8 +5,6 @@ using IxTimeSheet.Service.Interface;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
-using System.Collections.Generic;
-using IxTimeSheet.Service.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 
 namespace IxTimeSheet.Controllers
@@ -22,7 +20,7 @@ namespace IxTimeSheet.Controllers
         }
 
         // GET: TimeLogs
-        public IActionResult Index()
+        public IActionResult Index(string Search, string SortOrder)
         {
             string username = User.Identity.Name;
 
@@ -30,14 +28,29 @@ namespace IxTimeSheet.Controllers
 
             timelog =timelog.Where(x=>x.UserName.Equals(username)).ToList();
 
-            List<vwTotalHours> totals = timelog.GroupBy(x => x.Date).Select(x => new vwTotalHours { Day = x.Key, TotalHours = x.Sum(c => c.Hours.Hours), TotalMinutes = x.Sum(c => c.Hours.Minutes) }).ToList();
+            //List<vwTotalHours> totals = timelog.GroupBy(x => x.Date).Select(x => new vwTotalHours { Day = x.Key, TotalHours = x.Sum(c => c.Hours.Hours), TotalMinutes = x.Sum(c => c.Hours.Minutes) }).ToList();
+            //ViewBag.Total = totals;
 
-            ViewBag.Total = totals;
+            ViewData["DateSort"] = SortOrder == "asc" ? "dsc" : "asc";
+            if (SortOrder == "asc")
+            {
+                timelog = timelog.OrderByDescending(x => x.Date).ToList();
+            }
+
+            if (SortOrder == "dsc")
+            {
+                timelog = timelog.OrderBy(x => x.Date).ToList();
+            }
+
+            if (Search != null)
+            {
+                timelog = timelog.Where(x => x.Client.Contains(Search)||x.Project.Contains(Search)).ToList();
+            }
 
             return View(timelog);
         }
 
-        public IActionResult IndexAll(string Search)
+        public IActionResult IndexAll(string Search,string SortOrder)
         {
             var timelog = _timelog.GetAll().ToList();
 
@@ -47,6 +60,16 @@ namespace IxTimeSheet.Controllers
             if(Search != null)
             {
                 timelog=timelog.Where(x=>x.UserName.Contains(Search)).ToList();
+            }
+
+            ViewData["DateSortParameter"] = SortOrder == "asc" ? "dsc" : "asc";
+            if (SortOrder=="asc")
+            {
+                timelog=timelog.OrderByDescending(x=>x.Date).ToList();
+            }
+            if (SortOrder == "dsc")
+            {
+                timelog = timelog.OrderBy(x => x.Date).ToList();
             }
 
             return View(timelog);
