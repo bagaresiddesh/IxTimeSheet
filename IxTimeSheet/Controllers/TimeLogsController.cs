@@ -39,7 +39,7 @@ namespace IxTimeSheet.Controllers
         {
             var timelog = _timelog.GetAll().ToList();
 
-            List <vwTotalHours> totals = timelog.GroupBy(x => x.Date).Select(x => new vwTotalHours { Day = x.Key, TotalHours = x.Sum(c => c.Hours.Hours), TotalMinutes=x.Sum(c=>c.Hours.Minutes) }).ToList();
+            List <vwTotalHours> totals = timelog.GroupBy(x => x.Date).Select(x => new vwTotalHours { Day = x.Key, TotalHours = x.Sum(c => c.Hours.Hours), TotalMinutes=x.Sum(c=>c.Hours.Minutes)}).ToList();
 
             ViewBag.Total = totals;
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IxTimeSheet.DAL.Model
@@ -9,6 +10,7 @@ namespace IxTimeSheet.DAL.Model
         public int Id { get; set; }
         public int CId { get; set; }
 
+        [Required]
         [DisplayName("Project Name")]
         public string Name { get; set; }
         public DateTime CreatedDate { get; set; }

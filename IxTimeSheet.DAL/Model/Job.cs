@@ -12,6 +12,7 @@ namespace IxTimeSheet.DAL.Model
 
         public int PId { get; set; }
 
+        [Required]
         [DisplayName("Job Name")]
         public string Name { get; set; }
         public DateTime CreatedDate { get; set; }

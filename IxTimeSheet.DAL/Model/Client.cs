@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -10,6 +9,7 @@ namespace IxTimeSheet.DAL.Model
         [Key]
         public int Id { get; set; }
 
+        [Required]
         [DisplayName("Client Name")]
         public string Name { get; set; }
         public DateTime CreatedDate { get; set; }
