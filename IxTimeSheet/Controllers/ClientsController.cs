@@ -3,9 +3,11 @@ using IxTimeSheet.DAL.Model;
 using IxTimeSheet.Service.Interface;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IxTimeSheet.Controllers
 {
+    [Authorize]
     public class ClientsController : Controller
     {
         private readonly IClient _client;

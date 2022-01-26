@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using IxTimeSheet.Service.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IxTimeSheet.Controllers
-{   
+{
+    [Authorize]
     public class TimeLogsController : Controller
     {
         private readonly ITimeLog _timelog;

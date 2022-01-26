@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using IxTimeSheet.DAL.Model;
 using IxTimeSheet.Service.Interface;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IxTimeSheet.Controllers
 {
+    [Authorize]
     public class JobsController : Controller
     {
         private readonly IJob _job;
