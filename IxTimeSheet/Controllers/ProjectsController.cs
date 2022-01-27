@@ -37,7 +37,7 @@ namespace IxTimeSheet.Controllers
         // POST: Projects/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Name,CreatedDate,UpdatedDate,CId")] Project project)
+        public IActionResult Create([Bind("Id,Name,Description,CreatedDate,UpdatedDate,CId")] Project project)
         {
             if (ModelState.IsValid)
             {               
@@ -73,7 +73,7 @@ namespace IxTimeSheet.Controllers
         // POST: Projects/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,Name,CreatedDate,UpdatedDate")] Project project)
+        public IActionResult Edit(int id, [Bind("Id,Name,Description,CreatedDate,UpdatedDate")] Project project)
         {
             int cid = _project.GetById(id).CId;
 

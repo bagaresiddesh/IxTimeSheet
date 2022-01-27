@@ -28,6 +28,7 @@ namespace IxTimeSheet.Service.Repository
         public void Create(Job job)
         {
             job.CreatedDate = DateTime.Now;
+            job.UpdatedDate = DateTime.Now;
 
             _applicationDbContext.Jobs.Add(job);
             _applicationDbContext.SaveChanges();

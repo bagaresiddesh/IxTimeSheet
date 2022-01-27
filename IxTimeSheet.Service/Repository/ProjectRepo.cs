@@ -27,6 +27,7 @@ namespace IxTimeSheet.Service.Repository
         public void Create(Project project)
         {
             project.CreatedDate = DateTime.Now;
+            project.UpdatedDate = DateTime.Now;
             
             _applicationDbContext.Projects.Add(project);
             _applicationDbContext.SaveChanges();

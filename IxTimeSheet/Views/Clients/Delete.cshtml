@@ -1,4 +1,6 @@
-﻿@model IxTimeSheet.DAL.Model.Client
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> signInManager
+@model IxTimeSheet.DAL.Model.Client
 
 @{
     ViewData["Title"] = "Delete";
@@ -37,6 +39,10 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
+        @if(signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+        {
+            <input type="submit" value="Delete" class="btn btn-danger" asp-action="IndexAll" asp-controller="Clients"/>
+        }
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

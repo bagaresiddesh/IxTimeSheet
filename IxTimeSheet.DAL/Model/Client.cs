@@ -12,6 +12,9 @@ namespace IxTimeSheet.DAL.Model
         [Required]
         [DisplayName("Client Name")]
         public string Name { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        public string Description { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
     }

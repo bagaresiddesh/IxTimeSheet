@@ -37,7 +37,7 @@ namespace IxTimeSheet.Controllers
         // POST: Jobs/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Name,CreatedDate,UpdatedDate,PId")] Job job)
+        public IActionResult Create([Bind("Id,Name,Description,CreatedDate,UpdatedDate,PId")] Job job)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace IxTimeSheet.Controllers
         // POST: Jobs/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,Name,CreatedDate,UpdatedDate")] Job job)
+        public IActionResult Edit(int id, [Bind("Id,Name,Description,CreatedDate,UpdatedDate")] Job job)
         {
             int pid = _job.GetById(id).PId;
 

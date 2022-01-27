@@ -27,6 +27,7 @@ namespace IxTimeSheet.Service.Repository
         public void Create(Client client)
         {
             client.CreatedDate = DateTime.Now;
+            client.UpdatedDate = DateTime.Now;  
 
             _applicationDbContext.Clients.Add(client);
             _applicationDbContext.SaveChanges();

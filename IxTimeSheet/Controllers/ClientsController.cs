@@ -34,7 +34,7 @@ namespace IxTimeSheet.Controllers
         // POST: Clients/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Name,CreatedDate,UpdatedDate")] Client client)
+        public IActionResult Create([Bind("Id,Name,Description,CreatedDate,UpdatedDate")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace IxTimeSheet.Controllers
         // POST: Clients/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,Name,CreatedDate,UpdatedDate")] Client client)
+        public IActionResult Edit(int id, [Bind("Id,Name,Description,CreatedDate,UpdatedDate")] Client client)
         {
             if (id != client.Id)
             {
