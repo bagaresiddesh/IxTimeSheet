@@ -9,13 +9,36 @@
     <a asp-action="Index" asp-controller="Private">   Dashboard  </a>  <br />
     <a asp-action="IndexAll" asp-controller="TimeLogs">   Back To List   </a>
 </p>
+<div class="row">
+    <div class="row col-md-3">
 
-    @using(@Html.BeginForm())
-    {
-        <label>Search by User Name </label>
-        <input id="Search" name="Search" type="text" class="form-control"/><br />
-        <input type="submit" class="btn-primary" value="Search"/><br />
-    }  
+        @using (@Html.BeginForm())
+        {
+            <label>Search by User Name </label>
+            <input id="Search" name="Search" type="text" class="form-control" />
+
+            <br />
+            <input type="submit" class="btn-primary" value="Search" />
+
+            <br />
+        }
+    </div>
+    <div class="row col-md-3">
+        @using (@Html.BeginForm())
+        {
+            <label>Search by Client / Project Name</label>
+            <input id="SearchCP" name="SearchCP" type="text" class="form-control" />
+
+            <br />
+            <input type="submit" class="btn-primary" value="Search" />
+
+            <br />
+
+            <br />
+        }
+    </div>
+</div>
+
 
 <table class="table">
     <thead>
@@ -37,7 +60,7 @@
             </th>
             <th>
                 <a asp-action="IndexAll" asp-route-SortOrder="@ViewData["DateSortParameter"]">
-                @Html.DisplayNameFor(model => model.Date)
+                    @Html.DisplayNameFor(model => model.Date)
                 </a>
             </th>
             <th>
@@ -84,8 +107,8 @@
                         <label>Non Billable</label>
                     }
                 </td>
-                <td>                    
-                    <a asp-action="Delete" asp-route-id="@item.Id" >Delete</a>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                 </td>
             </tr>
         }

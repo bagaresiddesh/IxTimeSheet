@@ -26,7 +26,7 @@ namespace IxTimeSheet.Controllers
 
             var timelog=_timelog.GetAll().ToList();
 
-            timelog =timelog.Where(x=>x.UserName.Equals(username)).ToList();
+            timelog =timelog.Where(x=>x.UserName.Equals(username)).ToList();           
 
             //List<vwTotalHours> totals = timelog.GroupBy(x => x.Date).Select(x => new vwTotalHours { Day = x.Key, TotalHours = x.Sum(c => c.Hours.Hours), TotalMinutes = x.Sum(c => c.Hours.Minutes) }).ToList();
             //ViewBag.Total = totals;
@@ -50,7 +50,7 @@ namespace IxTimeSheet.Controllers
             return View(timelog);
         }
 
-        public IActionResult IndexAll(string Search,string SortOrder)
+        public IActionResult IndexAll(string Search,string SortOrder,string SearchCP)
         {
             var timelog = _timelog.GetAll().ToList();
 
@@ -60,6 +60,11 @@ namespace IxTimeSheet.Controllers
             if(Search != null)
             {
                 timelog=timelog.Where(x=>x.UserName.Contains(Search)).ToList();
+            }
+
+            if(SearchCP != null)
+            {
+                timelog = timelog.Where(x => x.Client.Contains(SearchCP) || x.Project.Contains(SearchCP)).ToList();
             }
 
             ViewData["DateSortParameter"] = SortOrder == "asc" ? "dsc" : "asc";
