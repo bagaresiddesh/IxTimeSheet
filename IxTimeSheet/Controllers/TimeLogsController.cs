@@ -26,7 +26,10 @@ namespace IxTimeSheet.Controllers
 
             var timelog=_timelog.GetAll().ToList();
 
-            timelog =timelog.Where(x=>x.UserName.Equals(username)).ToList();           
+            timelog =timelog.Where(x=>x.UserName.Equals(username)).ToList();
+
+            var clients = timelog.Select(x => x.Client).ToList();
+            ViewBag.clientslist = clients;
 
             //List<vwTotalHours> totals = timelog.GroupBy(x => x.Date).Select(x => new vwTotalHours { Day = x.Key, TotalHours = x.Sum(c => c.Hours.Hours), TotalMinutes = x.Sum(c => c.Hours.Minutes) }).ToList();
             //ViewBag.Total = totals;
